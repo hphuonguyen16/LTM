@@ -14,7 +14,7 @@
         <div class="menu">
             <div class="left-menu">
                 <a href="home.jsp" class="item">Home</a>
-                <a href="flashcard.jsp" class="item">Flashcard</a>
+                <a href="<%=request.getContextPath()%>/flashcard?action=getAllFlashcards" class="item">Flashcard</a>
                 <a href="quiz.jsp" class="item">Quiz</a>
                 <a class="item">Points</a>
             </div>

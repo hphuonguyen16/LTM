@@ -6,12 +6,11 @@ public class Flashcard {
 	private String word_type;
 	private String meaning;
 	private String image;
-	private int userID;
+	private Integer userID;
 
 	public Flashcard() {
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	public int getFlashcardID() {
 		return flashcardID;
@@ -53,11 +52,11 @@ public class Flashcard {
 		this.image = image;
 	}
 
-	public int getUserID() {
+	public Integer getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(Integer userID) {
 		this.userID = userID;
 	}
 }
