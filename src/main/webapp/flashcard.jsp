@@ -54,7 +54,7 @@
 	        </div>
 	    <% } %>
         <img class="swipe-right" src="${pageContext.request.contextPath}/image/swipe-left.png"
-            onclick="clickRight()" />
+            onclick="clickRight()"/>
     </div>
 </body>
 
