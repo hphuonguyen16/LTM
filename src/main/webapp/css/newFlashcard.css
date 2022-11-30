@@ -1,0 +1,104 @@
+@import url(../css/config.css);
+
+body{
+    background: var(--main-color-middle);
+    
+}
+
+.flashcard-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+    flex-direction: row;
+}
+
+.front, 
+.back{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+}
+
+.flashcard-form input,
+.flashcard-form textarea {
+    width: 90%;
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0);
+    color: #ffffff;
+    border: 2px solid #ffffffa2;
+    border-radius: 12px;
+    margin: 10px 0;
+}
+
+.flashcard-form input, .flashcard-form textarea::-webkit-input-placeholder {
+    color: #ffffffa4;
+}
+
+.flashcard-form input, .flashcard-form textarea:is(:focus) {
+    border-color: white;
+    border-width: 3px;
+}
+
+.flashcard-form .image-upload::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.flashcard-form .image-upload::before {
+    content: "Upload your image here";
+    display: inline-block;
+    background: linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+
+    font-size: 10pt;
+    font-family: "Playfair Display", serif;
+}
+
+.flashcard-form .image-upload:hover::before {
+    border-color: white;
+    box-shadow: 1px 1px #fff;
+}
+
+.flashcard-form .image-upload:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.flashcard-form .meaning{
+    resize: none;
+    height: 200px;
+    text-align: justify;
+    font-size: 1rem;
+}
+
+.flashcard-form .meaning::-webkit-scrollbar {
+    width: 0px;
+}
+
+.flashcard-form .submit-button{
+    width: 60px;
+    height: 60px;
+    /* padding: 8px 30px; */
+    padding-top: 10px;
+    font-family: "Lobster", cursive;
+    font-size: 22pt;
+    background-color: var(--main-color-dark);
+    color: #ffffff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 20px 3px;
+}
+
+.flashcard-form .submit-button:hover {
+    background-color: var(--main-color-middle);
+}

@@ -5,9 +5,33 @@ body{
     background: var(--main-color-light);
 }
 
+textarea {
+	resize: none;
+    width: 90%;
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background: transparent;
+    border: 2px solid #ffffffa2;
+    border-radius: 12px;
+    margin: 10px 0;
+}
+
+textarea::-webkit-scrollbar {
+    color: rgba(255,255,255,0.3);
+}
+
 .container{
-    width: 100%;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cards-slider{
+    width: 100%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,23 +94,25 @@ body{
 }
 
 .flashcard .front .card-container{
-    border: 3px solid black;
+    border: 2px solid black;
 }
 
 .flashcard .back .card-container {
     height: 100%;
+    overflow: hidden;
     /* border: 3px solid var(--sub-color-dark); */
 }
 
 .flashcard .front .img-container{
     /* margin-bottom: 1rem; */
+    overflow:hidden;
 }
 
 .front .img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: saturate(70%);
+    /* filter: saturate(70%); */
 }
 
 .flashcard .front .word {
@@ -96,11 +122,14 @@ body{
     justify-content: center;
     color: var(--main-color-dark);
     font-size: 36pt;
+    font-family: 'Racing Sans One', cursive;
 }
 
 .flashcard .back .word-type{
     font-size: 28pt;
     color: var(--sub-color-dark);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
 }
 
 .flashcard .back .meaning {
@@ -108,37 +137,91 @@ body{
     color: var(--sub-color-middle);
     text-align: center;
     margin: 0 10px;
+    font-family: 'Poppins', sans-serif;
+    max-height: 90%;
 }
 
-.container .swipe-left, 
-.container .swipe-right{
-	z-index: 99;
+.cards-slider .swipe-left, 
+.cards-slider .swipe-right{
+	z-index: 999;
     height: 80px;
 }
 
-.container .swipe-left:hover,
-.container .swipe-right:hover {
+.cards-slider .swipe-left:hover,
+.cards-slider .swipe-right:hover {
     height: 90px;
     margin-right: -10px;
     cursor: pointer;
+    filter: brightness(1.5);
 }
 
 .hide-card{
-	display:none;
-}
-
-.flashcard.disappear-left{
-    transform: translateX(-200px);
 	opacity: 0;
 }
 
+/* @keyframes swipeLeft {
+	0% {
+		opacity: 0;
+	}
+	1% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+} */
+
+.flashcard.disappear-left{
+	transform: translateX(-200px);
+	opacity: 0;
+	/* z-index: -999 !important; */
+}
+
 .flashcard.appear-left{
+	opacity: 1;
 	display:flex;
-    opacity: 1;
 }
 
 
 .flashcard.swipe-right {
     transform: translateX(200px);
     opacity: 1;
+}
+
+.add-section{
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-section .add-button{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+    width: 80px;
+    height: 80px;
+    background: var(--main-color-dark);
+    font-family:'Poppins', sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 28pt;
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--main-color-middle);
+    margin-bottom: 80px;
+    z-index: 999;
+}
+
+.add-section .add-button:hover {
+    /* box-shadow: inset 4px 4px 0 #753a1e, 4px 4px 0 var(--main-color-middle); */
+    box-shadow: inset -4px -4px 6px #753a1e, 4px 4px 0 var(--main-color-middle);
+}
+
+.add-section .dash-arrow{
+	position: absolute;
+	right: 37.5%;
+	bottom: 14.5%;
+	
+	height: 180px;
+	
 }

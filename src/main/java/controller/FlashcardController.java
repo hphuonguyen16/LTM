@@ -82,6 +82,9 @@ public class FlashcardController extends HttpServlet {
 			FlashcardBO flashcardBO = new FlashcardBO();
 			int status = flashcardBO.addNewFlashcard(word, word_type, meaning, part.getInputStream(), userID);
 			if (status > 0) {
+				String destination = "/home.jsp";
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
+				dispatcher.forward(request, response);
 				System.out.println("flashcard added successfully");
 			} else {
 				System.out.println("flashcard adding failed");

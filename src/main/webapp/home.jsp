@@ -53,7 +53,7 @@
         var elems = document.getElementsByClassName('others');
         var items = document.getElementsByClassName('item');
         for (let i = 0; i < items.length; i++)
-            if (window.location.href.indexOf(items[i].innerHTML) > -1) {
+            if (window.location.href.indexOf(items[i].innerHTML.toLowerCase()) > -1) {
                 items[i].setAttribute('style', 'text-decoration: underline');
                 break;
             }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@500;600;700&family=Pacifico&family=Racing+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&family=Lobster&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One&family=Poppins:wght@500;600;700&family=Pacifico&family=Racing+Sans+One&display=swap');
 
 html{
     scroll-behavior: smooth;
@@ -9,6 +9,17 @@ html{
     border: none;
     margin: 0;
     padding: 0;
+    user-select: none;
+    -webkit-tap-highlight-color: var(--main-color-dark);
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
 }
 
 :root{

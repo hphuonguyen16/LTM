@@ -13,49 +13,67 @@
 
 <body>
     <!-- Flashcard contains a front (w a word in English & an image associated w/ it) & a back (w the meaning of the word) -->
-    <div class="container">
-        <img class="swipe-left" src="${pageContext.request.contextPath}/image/swipe-left.png"
-            onclick="clickLeft()" />
-            <div style="width:500px;"></div>
-        <% ArrayList<Flashcard> flashcards = (ArrayList<Flashcard>)request.getAttribute("listFlashcard");
-        	for(int i = 0; i < flashcards.size(); i++) {
-        %>
-        <script>let i = 0;
-    		function clickRight(){
-    			console.log(i);
-    			if(i < <%= flashcards.size()-1 %>){
-    			document.getElementsByClassName('flashcard')[i].classList.remove('appear-left');
-    			document.getElementsByClassName('flashcard')[i].classList.remove('hide-card');
-    			document.getElementsByClassName('flashcard')[i++].classList.add('disappear-left');
-    			document.getElementsByClassName('flashcard')[i].classList.add('appear-left');}
-    		}
-    		function clickLeft(){
-    			console.log(i);
-    			document.getElementsByClassName('flashcard')[i + 1].classList.remove('appear-left');
-    			document.getElementsByClassName('flashcard')[i + 1].classList.add('hide-card');
-    			document.getElementsByClassName('flashcard')[i--].classList.remove('disappear-left');
-    		}
-    	</script>
-	        <div class="flashcard <%= i==0?"":"hide-card" %>" style="z-index: -<%= i %>">
-	            <div class="front">
-	                <div class="card-container">
-	                    <div class="img-container">
-	                        <img src="data:image/png;base64, <%= flashcards.get(i).getImage() %>" alt="">
-	                    </div>
-	                </div>
-	                <div class="word"><%= flashcards.get(i).getWord()%></div>
-	            </div>
-	            <div class="back">
-	                <div class="card-container">
-	                    <div class="word-type"><%= flashcards.get(i).getWord_type()%></div>
-	                    <div class="meaning"><%= flashcards.get(i).getMeaning()%></div>
-	                </div>
-	            </div>
-	        </div>
-	    <% } %>
-        <img class="swipe-right" src="${pageContext.request.contextPath}/image/swipe-left.png"
-            onclick="clickRight()"/>
-    </div>
+	<div class="container">
+	    <div class="cards-slider">
+	        <img class="swipe-left" style="opacity: 0" src="${pageContext.request.contextPath}/image/swipe-left.png"
+	            onclick="clickLeft()" />
+	            <div style="width:500px;"></div>
+	        <% ArrayList<Flashcard> flashcards = (ArrayList<Flashcard>)request.getAttribute("listFlashcard");
+	        	for(int i = 0; i < flashcards.size(); i++) {
+	        %>
+	        <script>let i = 0, n = <%= flashcards.size()-1 %>;
+	    		function clickRight(){
+	    			if(i < n){
+	    			document.getElementsByClassName('flashcard')[i].classList.remove('appear-left');
+	    			document.getElementsByClassName('flashcard')[i].classList.remove('hide-card');
+	    			document.getElementsByClassName('flashcard')[i++].classList.add('disappear-left');
+	    			document.getElementsByClassName('flashcard')[i].classList.add('appear-left');}
+	    			if(i == n)
+		        		document.getElementsByClassName('swipe-right')[0].style.opacity = 0;
+	    			if(i != 0)
+	    				document.getElementsByClassName('swipe-left')[0].style.opacity = 1;
+	    		}
+	    		function clickLeft(){
+	    			if(i > 0){
+	    			document.getElementsByClassName('flashcard')[i].classList.remove('appear-left');
+	    			document.getElementsByClassName('flashcard')[i--].classList.add('hide-card');
+	    			document.getElementsByClassName('flashcard')[i].classList.remove('disappear-left');}
+	    			if(i == 0)
+	            		document.getElementsByClassName('swipe-left')[0].style.opacity = 0;
+	    			else 
+	    				document.getElementsByClassName('swipe-left')[0].style.opacity = 1;
+	    			if(i != n)
+	    				document.getElementsByClassName('swipe-right')[0].style.opacity = 1;
+	    		}
+	    	</script>
+		        <div class="flashcard <%= i==0?"":"hide-card" %>" style="z-index: <%= 99 - i %>">
+		            <div class="front">
+		                <div class="card-container">
+		                    <div class="img-container">
+		                        <img src="data:image/png;base64, <%= flashcards.get(i).getImage() %>" alt="">
+		                    </div>
+		                </div>
+		                <div class="word"><%= flashcards.get(i).getWord()%></div>
+		            </div>
+		            <div class="back">
+		                <div class="card-container">
+		                    <div class="word-type"><%= flashcards.get(i).getWord_type()%></div>
+		                    <textarea class="meaning"><%= flashcards.get(i).getMeaning()%></textarea>
+		                </div>
+		            </div>
+		        </div>
+		    <% } %>
+	        <img class="swipe-right" src="${pageContext.request.contextPath}/image/swipe-right.png"
+	            onclick="clickRight()"/>
+	    </div>
+		<div class="add-section">
+			<div style="position: absolute; right: 31%; bottom: 120px; font-size: 23pt; text-align: center; font-family: 'Racing Sans One', cursive; transform: rotateZ(7deg)">Create your <br> own
+			<span style="color: #b3572d; font-size: 28pt; margin: 0 5px; text-shadow: 2px 2px 0 #fbd37b, 5px 6px 0 #284b59;">flashcard</span> !</div>
+			<img class="dash-arrow" alt="" src="${pageContext.request.contextPath}/image/dash-arrow.png">
+			<a class="add-button" href="customFlashcard.jsp">+</a>
+		</div>
+	    
+	</div>
 </body>
 
 </html>
