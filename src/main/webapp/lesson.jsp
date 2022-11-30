@@ -15,7 +15,7 @@
 	ArrayList<Lesson> lessons = (ArrayList<Lesson>)request.getAttribute("lessons");
 	for (int i = 0; i < lessons.size(); i++){
 %>
-	<a href="QuizServlet?action=getQuestion&next_ques=0&lesson_id=<%=lessons.get(i).getLessonID() %>" class="card">
+	<a href="QuizServlet?action=getQuestion&next_ques=0&lesson_id=<%=lessons.get(i).getLessonID()%>" class="card">
   <div class="card__img-container">
     <img class="card__img" src="//unsplash.it/400" alt="unsplash random image" />
     <div class="card__tags">

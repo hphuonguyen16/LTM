@@ -80,7 +80,7 @@ public class QuizServlet extends HttpServlet {
     	Question question = questionBO.getQuestionsByIndex(next_ques-1, lesson_id);
     	List<Choices> choices = questionBO.getChoicesByQuestionId(question.getQuizID());
 		request.setAttribute("question", question);
-		request.setAttribute("choices", choices);
+		request.setAttribute("choices", choices); 
 		request.setAttribute("questions", questions);
 		request.setAttribute("next_ques", next_ques);
 		request.setAttribute("num_ques", num_ques);

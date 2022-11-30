@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@500;600;700&family=Pacifico&family=Racing+Sans+One&display=swap');
+
+html{
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --main-color-dark: #b3572d;
+    --main-color-middle: #f8c365;
+    --main-color-light: #fbd37b;
+    --sub-color-dark: rgb(22, 89, 91);
+    --sub-color-middle: #499d92;
+    --sub-color-light: #88c8ba;
+
+    --header-height: 930px;
+    --header-shrink-height: 80px;
+
+    --main-shadow: -5px 5px 0 #803613;
+    --sub-shadow: -5px 5px 0 #284b59;
+    --hover-shadow: -5px 5px 0 #284b59,-8px 9px 0 #b3572d;
+    --sub-hover-shadow: -5px 5px 0 #803613, -8px 9px 0 #22786c;
+    --text-shadow: 0px 2px 0 #f8c365, 0px 4px 0 #284b59;
+}
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #f8c365;
+    /* border-radius: 20px; */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #fbd37b;
+}
