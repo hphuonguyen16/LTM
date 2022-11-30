@@ -8,6 +8,15 @@ public class Choices {
 	public Choices() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Choices(int choiceID, String answer, boolean correct, int questionID) {
+		super();
+		this.choiceID = choiceID;
+		this.answer = answer;
+		this.correct = correct;
+		this.questionID = questionID;
+	}
+
 	public int getChoiceID() {
 		return choiceID;
 	}

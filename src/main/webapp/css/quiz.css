@@ -1,5 +1,6 @@
 *{
 	box-sizing: border-box;
+	height:100vh;
 }
 body{
 	margin: 0;
@@ -35,16 +36,18 @@ h3 {
 ul{
 	margin: 0;
 	list-style: none;
-	color:  #499d92;
+	color:  rgb(73, 157, 146);
 	border: 1px solid #c7e4de;
 	padding: 20px;
+	padding-bottom: 10px;
 	border-radius: 10px;
 	background: #f5faf9;
 }
-ul li+li{
+ul li{
 	margin-top: 16px;
 	border-top: 1px solid #c7e4de;
-	padding-top: 16px;
+	padding-bottom: 15px;
+    padding-top: 10px;
 }
 ul li input[type="radio"] {
     display: none;
@@ -52,6 +55,7 @@ ul li input[type="radio"] {
 ul li input[type="radio"]+label{
     position:relative;
     padding-left: 25px;
+
 }
 ul li input[type="radio"]+label::before{
     content:"";
@@ -170,5 +174,12 @@ svg {
 	cursor: pointer;
 }
 
+#correct{
+	background:  #ccffcc;
+}
+
+#wrong{
+	background: #ffb9b9;
+}
 
 
