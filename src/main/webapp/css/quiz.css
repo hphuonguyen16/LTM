@@ -1,7 +1,3 @@
-*{
-	box-sizing: border-box;
-	height:100vh;
-}
 body{
 	margin: 0;
 	padding: 20px;
@@ -10,9 +6,7 @@ body{
 	background:  #6ab5a5;
   
 }
-.score-color--white{
-	background: #fff;
-}
+
 h2{
 	font-size: 20px;
 	margin: 0;
@@ -25,7 +19,7 @@ h3 {
     padding-bottom: 20px;
     margin: 0;
 }
-.quize{
+#quize{
 	max-width: 700px;
 	width: 100%;
 	margin: 50px auto;
@@ -43,11 +37,15 @@ ul{
 	border-radius: 10px;
 	background: #f5faf9;
 }
-ul li{
+ul li+li{
 	margin-top: 16px;
 	border-top: 1px solid #c7e4de;
-	padding-bottom: 15px;
-    padding-top: 10px;
+	padding-bottom: 10px;
+    padding-top: 20px;
+}
+li{
+	padding-bottom: 12px;
+    padding-top: 7px;
 }
 ul li input[type="radio"] {
     display: none;
@@ -112,30 +110,7 @@ label{
 .question-bar.hidden{
 	display: none;
 }
-.scoreCount {
-    color: #000;
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    display: block;
-    vertical-align: middle;
-    line-height: 3.3;
-    font-size: 30px;
-    margin: 0 auto;
-    background: #FFBA00;
-    font-weight: bold;
-}
-div#showscore {
-    text-align: center;
-}
-.scoreBoard {
-    background: #fffbf1;
-    border-radius: 10px;
-    padding: 50px 20px;
-    max-width: 300px;
-    margin: 20px auto 50px;
-    border: 1px solid #ffe6a1;
-}
+
 .wrongAwnswer {
     margin-top: 30px;
     font-weight: bold;
@@ -174,12 +149,48 @@ svg {
 	cursor: pointer;
 }
 
-#correct{
-	background:  #ccffcc;
+@keyframes backOutRight {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(0px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateX(2000px) scale(0.7);
+    opacity: 0.7;
+  }
 }
 
-#wrong{
-	background: #ffb9b9;
+.backOutRight {
+  animation-name: backOutRight;
 }
+
+
+@keyframes backOutLeft {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(0px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateX(-2000px) scale(0.7);
+    opacity: 0.7;
+  }
+}
+
+.backOutLeft {
+  animation-name: backOutLeft;
+}
+
 
 
