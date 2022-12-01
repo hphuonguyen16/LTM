@@ -101,14 +101,8 @@
 			    var container = document.getElementById('container');
 			    li_container.appendChild(radiobox);
 			    li_container.appendChild(label);
-			    container.appendChild(li_container);
-			    
-			    
-			    
-			    
-			   
+			    container.appendChild(li_container);  
 			}
-			
 		}
 		}
 		function clickLeft(){
