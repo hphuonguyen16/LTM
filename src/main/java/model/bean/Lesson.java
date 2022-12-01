@@ -8,6 +8,15 @@ public class Lesson {
 	public Lesson() {
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Lesson(int lessonID, String topic, int level) {
+		super();
+		this.lessonID = lessonID;
+		this.topic = topic;
+		this.level = level;
+	}
+
 
 	public int getLessonID() {
 		return lessonID;

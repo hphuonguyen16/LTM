@@ -7,6 +7,14 @@ public class Question {
 	public Question() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Question(int quizID, String question, int lessonID) {
+		super();
+		this.quizID = quizID;
+		this.question = question;
+		this.lessonID = lessonID;
+	}
+
 	public int getQuizID() {
 		return quizID;
 	}
