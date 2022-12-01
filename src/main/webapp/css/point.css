@@ -1,0 +1,69 @@
+@import url(../css/config.css);
+
+body{
+	background: var(--sub-color-light);
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.table{
+    width: 500px;
+    display: flex;
+    background-color: var(--sub-color-dark);
+    border-radius: 10px;
+    padding: 6px 6px;
+    height: 550px;
+    overflow: scroll;
+}
+
+.table::-webkit-scrollbar {
+    display: none;
+}
+
+.main-column {
+    width: 200px;
+    text-align: center;
+	
+}
+
+.column {
+    width: 150px;
+    text-align: center;
+    
+}
+
+.filled{
+    display: flex;
+    /* border: 2px solid whi; */
+    background-color: #ffffff;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.option-title {
+    color: var(--sub-color-dark);
+    font-size: 21pt;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.options {
+    margin-top: 10px;
+}
+
+.options.topic-options{
+    color: #ffffff;
+}
+
+.option {
+    font-family: 'Poppins', sans-serif;
+    /* border: 1px solid grey; */
+    margin: 10px;
+    padding: 6px 0px;
+}
