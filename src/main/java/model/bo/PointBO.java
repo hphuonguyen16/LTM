@@ -2,7 +2,7 @@ package model.bo;
 
 import java.util.ArrayList;
 
-import model.bean.Point;
+import model.bean.Point_Lesson;
 import model.dao.PointDAO;
 
 public class PointBO {
@@ -17,7 +17,7 @@ public class PointBO {
 		return pointDAO.addNewPoint(userID, lessonID, points);
 	}
 
-	public ArrayList<Point> getAllPointsByUserID(int userID) {
-		return pointDAO.getAllPointsByUserID(userID);
+	public ArrayList<Point_Lesson> getPointAndLessonByUserID(int userID) {
+		return pointDAO.getPointAndLessonByUserID(userID);
 	}
 }

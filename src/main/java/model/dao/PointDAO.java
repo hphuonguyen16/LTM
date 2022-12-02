@@ -8,22 +8,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import model.bean.Point;
+import model.bean.Point_Lesson;
 
 public class PointDAO {
-	public ArrayList<Point> getAllPointsByUserID(int userID) {
-		ArrayList<Point> result = new ArrayList<Point>();
+	public ArrayList<Point_Lesson> getPointAndLessonByUserID(int userID) {
+		ArrayList<Point_Lesson> result = new ArrayList<Point_Lesson>();
 		try {
 			Connection conn = getConnection();
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM point");
+			ResultSet rs = stmt.executeQuery(
+					"SELECT l.topic, l.level, p.points, Ctr.questionCount FROM point p LEFT OUTER JOIN lesson l ON p.lessonID = l.lessonID "
+							+ "LEFT OUTER JOIN (SELECT q.lessonID, COUNT(*) as questionCount from question q GROUP BY q.lessonID) Ctr "
+							+ "ON l.lessonID = Ctr.lessonID WHERE p.userID = " + userID);
 			while (rs.next()) {
-				Point point = new Point();
-				point.setPointID(rs.getInt(1));
-				point.setPoints(rs.getInt(2));
-				point.setUserID(rs.getInt(3));
-				point.setLessonID(rs.getInt(4));
-				result.add(point);
+				Point_Lesson point_lesson = new Point_Lesson();
+				point_lesson.setTopic(rs.getString("topic"));
+				point_lesson.setLevel(rs.getInt("level"));
+				point_lesson.setPoints(rs.getInt("points"));
+				point_lesson.setNum_question(rs.getInt("questionCount"));
+				result.add(point_lesson);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

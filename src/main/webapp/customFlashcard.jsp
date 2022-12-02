@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="model.bean.Flashcard"%>
 <html lang="en">
 
 <head>
@@ -10,28 +11,35 @@
 </head>
 
 <body>
+	<% boolean update = request.getParameter("action").equals("update");
+		Flashcard flashcard = (Flashcard) request.getAttribute("flashcard");
+	%>
     <script>
+    	<%-- document.getElementsByClassname("meaning")[0].value = ; --%>
+    	if(<%= update %>) {
+    		var url = "data:image/png;base64,<%=update ? flashcard.getImage() : null%>";
+    		document.documentElement.style.setProperty('--uploadedImage', "url(" + url.replace(/(\r\n|\n|\r)/gm, "") +")");
+    	}
         function loadFile(event) {
             document.documentElement.style.setProperty('--uploadedImage', "url(" + URL.createObjectURL(event.target.files[0]) + ")");
         }
     </script>
     <div class="custom-flashcard">
-        <div class="title">Create your <br> own
+        <div class="title"><%= update ? "Edit your <br>" : "Create your <br> own" %>
             <span
                 style="color: #b3572d; font-size: 40pt; margin: 0 5px; text-shadow: 2px 2px 0 #fbd37b, 5px 6px 0 #284b59;">flashcard</span>
             !
         </div>
     </div>
-    <form class="flashcard-form" action="<%=request.getContextPath()%>/flashcard?action=addNewFlashcard" method="post"
+    <form class="flashcard-form" action="<%=request.getContextPath()%>/flashcard?action=<%= update ? "updateFlashcard&flashcardID=" + flashcard.getFlashcardID() : "addNewFlashcard" %>" method="post"
         enctype="multipart/form-data">
         <div class="front">
             <input type="file" class="image-upload" name="image" onchange="loadFile(event)" />
-            <input type="text" name="word" class="word" placeholder="Word" required="required" />
+            <input type="text" name="word" class="word" placeholder="Word" required="required" value="<%= update ? flashcard.getWord() : "" %>" />
         </div>
         <div class="back">
-            <input type="text" name="word_type" class="word-type" placeholder="Word type" required="required" />
-            <textarea type="text" name="meaning" class="meaning" placeholder="Word's meaning"
-                required="required"></textarea>
+            <input type="text" name="word_type" class="word-type" placeholder="Word type" required="required" value="<%= update ? flashcard.getWord_type() : "" %>" />
+            <textarea type="text" name="meaning" class="meaning" placeholder="Word's meaning" required="required"><%= update ? flashcard.getMeaning() : "" %></textarea>
             <button class="submit-button" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-check"
                     viewBox="0 0 16 16">

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.bean.Point;
+import model.bean.Point_Lesson;
 import model.bo.PointBO;
 
 /**
@@ -70,9 +70,9 @@ public class PointController extends HttpServlet {
 			throws ServletException, IOException {
 		int userID = Integer.parseInt(request.getParameter("userID"));
 		PointBO pointBO = new PointBO();
-		ArrayList<Point> points = pointBO.getAllPointsByUserID(userID);
+		ArrayList<Point_Lesson> points = pointBO.getPointAndLessonByUserID(userID);
+//		System.out.println(points);
 		request.setAttribute("listPoint", points);
-		System.out.println(points);
 		String destination = "/point.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 		dispatcher.forward(request, response);

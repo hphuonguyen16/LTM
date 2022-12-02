@@ -40,7 +40,6 @@ public class FlashcardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		System.out.println(action);
 		switch (action) {
 		case "getRandomizedFlashcards":
 			getRandomizedFlashcard(request, response);
@@ -48,11 +47,14 @@ public class FlashcardController extends HttpServlet {
 		case "addNewFlashcard":
 			insertFlashcard(request, response);
 			break;
-		case "delete":
-//			deleteBook(request, response);
+		case "showCard":
+			showFlashcardToUpdate(request, response);
 			break;
-		case "update":
-//			updateBook(request, response);
+		case "deleteFlashcard":
+			deleteFlashcard(request, response);
+			break;
+		case "updateFlashcard":
+			updateFlashcard(request, response);
 			break;
 		default:
 			getAllFlashcard(request, response);
@@ -82,7 +84,9 @@ public class FlashcardController extends HttpServlet {
 			FlashcardBO flashcardBO = new FlashcardBO();
 			int status = flashcardBO.addNewFlashcard(word, word_type, meaning, part.getInputStream(), userID);
 			if (status > 0) {
-				String destination = "/home.jsp";
+				ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+				request.setAttribute("listFlashcard", flashcards);
+				String destination = "/flashcard.jsp";
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 				dispatcher.forward(request, response);
 				System.out.println("flashcard added successfully");
@@ -92,11 +96,71 @@ public class FlashcardController extends HttpServlet {
 		}
 	}
 
+	private void showFlashcardToUpdate(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		response.setContentType("text/html;charset=UTF-8");
+		int flashcardID = Integer.parseInt(request.getParameter("flashcardID"));
+		FlashcardBO flashcardBO = new FlashcardBO();
+		Flashcard flashcard = flashcardBO.showFlashcardDetail(flashcardID);
+		if (flashcard != null) {
+			request.setAttribute("flashcard", flashcard);
+			String destination = "/customFlashcard.jsp?action=update";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
+			dispatcher.forward(request, response);
+			System.out.println("flashcard shown successfully");
+		} else {
+			System.out.println("getting flashcard detail failed");
+		}
+	}
+
+	private void updateFlashcard(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		response.setContentType("text/html;charset=UTF-8");
+		out = response.getWriter();
+		int flashcardID = Integer.parseInt(request.getParameter("flashcardID"));
+		String word = request.getParameter("word");
+		String word_type = request.getParameter("word_type");
+		String meaning = request.getParameter("meaning");
+		Part part = request.getPart("image");
+		System.out.println(part.getInputStream());
+		if (word != null && word_type != null && meaning != null && part != null) {
+			FlashcardBO flashcardBO = new FlashcardBO();
+			int status = flashcardBO.updateFlashcard(flashcardID, word, word_type, meaning, part.getInputStream());
+			if (status > 0) {
+				ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+				request.setAttribute("listFlashcard", flashcards);
+				String destination = "/flashcard.jsp";
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
+				dispatcher.forward(request, response);
+				System.out.println("flashcard updated successfully");
+			} else {
+				System.out.println("flashcard updating failed");
+			}
+		}
+	}
+
+	private void deleteFlashcard(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		response.setContentType("text/html;charset=UTF-8");
+		int flashcardID = Integer.parseInt(request.getParameter("flashcardID"));
+		FlashcardBO flashcardBO = new FlashcardBO();
+		int status = flashcardBO.deleteFlashcard(flashcardID);
+		if (status > 0) {
+			ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+			request.setAttribute("listFlashcard", flashcards);
+			String destination = "/flashcard.jsp";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
+			dispatcher.forward(request, response);
+			System.out.println("flashcard deleted successfully");
+		} else {
+			System.out.println("flashcard deletion failed");
+		}
+	}
+
 	private void getAllFlashcard(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		FlashcardBO flashcardBO = new FlashcardBO();
 		ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
-		System.out.println(flashcards);
 		request.setAttribute("listFlashcard", flashcards);
 		String destination = "/flashcard.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
