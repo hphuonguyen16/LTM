@@ -18,6 +18,12 @@ public class QuestionDAO {
 	private String jdbcPassword = "";
 	private static final String SELECT_ALL_QUESTIONS_BY_LESSON_ID = "select * from question where lesson_id = ?;";
 	private static final String SELECT_ALL_CHOICES_BY_QUESTION_ID = "select * from choices where question_id = ?;";
+	private static final String INSERT_QUESTION = "INSERT INTO question" + "  (question, lesson_id) VALUES "
+			+ " (?, ?);";
+	private static final String INSERT_CHOICES = "INSERT INTO choices" + "  (answer, correct, question_id) VALUES "
+			+ " (?, ?, ?);";
+	private static final String DELETE_QUESTION = "delete from question where id = ?;";
+	private static final String DELETE_CHOICE = "delete from choices where question_id = ?;";
 	
 	
 	protected Connection getConnection() {
@@ -98,6 +104,75 @@ public class QuestionDAO {
 		}
 		return choices;
 	}
+	
+	public int insertQuestion(Question question) throws SQLException {
+		System.out.println(INSERT_QUESTION);
+		// try-with-resource statement will auto close the connection.
+		ResultSet rs = null;
+		try (Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUESTION, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			preparedStatement.setString(1, question.getQuestion());
+			preparedStatement.setInt(2, question.getLessonID());
+			preparedStatement.executeUpdate();
+			System.out.println(preparedStatement);
+			 int autoIncKeyFromApi = -1;
+
+			    rs = preparedStatement.getGeneratedKeys();
+
+			    if (rs.next()) {
+			        autoIncKeyFromApi = rs.getInt(1);
+			    }
+			    System.out.println("Key returned from getGeneratedKeys()"+ autoIncKeyFromApi);
+			return autoIncKeyFromApi;
+		} catch (SQLException e) {
+		}
+		return 0;
+	}
+	
+	public boolean deleteQuestion(int id) throws SQLException {
+		boolean rowDeleted;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_QUESTION);) {
+			statement.setInt(1, id);
+			rowDeleted = statement.executeUpdate() > 0;
+		}
+		return rowDeleted;
+	}
+	
+	public void insertChoice(Choices choice) throws SQLException {
+		System.out.println(INSERT_CHOICES);
+		// try-with-resource statement will auto close the connection.
+		try (Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CHOICES)) {
+			preparedStatement.setString(1, choice.getAnswer());
+			preparedStatement.setBoolean(2, choice.isCorrect());
+			preparedStatement.setInt(3, choice.getQuestionID());
+			System.out.println(preparedStatement);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+		
+		}
+	}
+	
+	public boolean deleteChoice(int questionID) throws SQLException {
+		boolean rowDeleted;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_CHOICE);) {
+			statement.setInt(1, questionID);
+			rowDeleted = statement.executeUpdate() > 0;
+		}
+		return rowDeleted;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

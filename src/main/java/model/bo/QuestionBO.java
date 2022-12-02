@@ -31,9 +31,6 @@ public class QuestionBO {
 	public  List<Choices> getAllChoices(List<Question> questions) throws ClassNotFoundException{
 		List<Choices> choices  = new ArrayList<>();
 		for(int i=0; i<questions.size();i++) {
-			System.out.println(questions.get(i).getQuestion());
-		}
-		for(int i=0; i<questions.size();i++) {
 			List<Choices> choices_temp =  questionDAO.getChoicesByQuestionId(questions.get(i).getQuizID());
 			for (int j=0; j<choices_temp.size();j++) {
 				choices.add(choices_temp.get(j));
@@ -42,8 +39,39 @@ public class QuestionBO {
 		for(int i=0; i<choices.size();i++) {
 			System.out.println(choices.get(i).getAnswer());
 		}
-		
-		
 		return choices;
 	}
+	
+	public HashMap<Question,List<Choices>> getAllQuestions_Choices(int lesson_id) throws ClassNotFoundException{
+		HashMap<Question,List<Choices>> map = new HashMap<Question,List<Choices>>();
+		List<Question> questions = new ArrayList<Question>();
+		questions = questionDAO.getAllQuestionsByLessonId(lesson_id);
+		for (int i=0; i<questions.size(); i++) {
+			List<Choices> choices_temp =  questionDAO.getChoicesByQuestionId(questions.get(i).getQuizID());
+			map.put(questions.get(i), choices_temp);
+		}
+		return map;
+	}
+
+	
+	public int insertQuestion(Question question) throws SQLException {
+		return questionDAO.insertQuestion(question);
+	}
+	
+	public boolean deleteQuestion(int id) throws SQLException {
+		return questionDAO.deleteQuestion(id);
+		
+	}
+	
+	public void insertChoice(Choices choice) throws SQLException {
+		questionDAO.insertChoice(choice);
+	}
+	
+	public boolean deleteChoice(int questionID) throws SQLException {
+		return questionDAO.deleteChoice(questionID);
+	}
+
+	
+	
+	
 }
