@@ -7,10 +7,14 @@ public class User {
 	private String role;
 	private String name;
 
-	public User() {
-		// TODO Auto-generated constructor stub
+	public void _User(int _id,String _username,String _password,String _role,String _name)
+	{
+		userID = _id;
+		username = _username;
+		password = _password;
+		role = _role;
+		name =_name;
 	}
-
 	public int getUserID() {
 		return userID;
 	}

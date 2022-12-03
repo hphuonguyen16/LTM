@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,19 @@ public class LessonDAO {
 		}
 		return lessons;
 	}
-
+	public void AddNewLesson(String _topic, String _level) throws ClassNotFoundException {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/elw", "root", "");
+			String sql = "insert into lesson(topic,level) values( ?, ?)";
+			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
+			statement.setString(1, _topic);
+			statement.setString(2, _level);
+			statement.executeUpdate();
+			conn.close();
+		} catch (SQLException | ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+	}
 
 }
