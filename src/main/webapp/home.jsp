@@ -1,37 +1,42 @@
 <!DOCTYPE html>
-<%@page import="model.bean.User"%>
+<%@page import="model.bean.*"%>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ELW</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
     <script type="text/javascript">
-    function ClickLogOut() {
-    	String action = "LogOut";
-	}
     </script>
 </head>
+
+<% 
+	String fullname = (String)session.getAttribute("fullname");
+	int userID = session.getAttribute("userID") != null ? Integer.valueOf(session.getAttribute("userID").toString()) : 0;
+	if(session.getAttribute("role") != null && ((String)session.getAttribute("role")).equals("admin")){
+		fullname = null;
+		userID = 0;
+	}
+%>
 
 <body id="wrapper">
     <div class="header">
         <div class="menu">
             <div class="left-menu">
                 <a href="home.jsp" class="item">Home</a>
-                <a href="<%=request.getContextPath()%>/flashcard?action=getRandomizedFlashcards" class="item">Flashcard</a>
+                <a href="<%=request.getContextPath()%>/flashcard?action=getRandomizedFlashcards&userID=<%= userID %>" class="item">Flashcard</a>
                 <a href="LessonServlet" class="item">Quiz</a>
-                <a href="<%=request.getContextPath()%>/point?action=getAllPointsByUserID&userID=1" class="item">Points</a>
+                <a href="<%= fullname != null ? request.getContextPath() + "/point?action=getAllPointsByUserID&userID=" + userID  : "login.jsp" %>" class="item">Points</a>
             </div>
             <div class="right-menu others">
-                <%String name = (String)session.getAttribute("username");
-                  String fullname = (String)session.getAttribute("fullname");
-                if(name != null)
+                <%
+                if(fullname != null)
             	{
             		%>
-            		<h3>Welcome <%= fullname %></h3>
-            		<a href="<%=request.getContextPath()%>/UserController?action=LogOut"  class="item" >Logout</a>
+            		<h3 style="font-family: 'Poppins', sans-serif; position: absolute; top: 15px; right: 30px;">Welcome <%= fullname %></h3>
+            		<a href="<%=request.getContextPath()%>/UserController?action=LogOut"  class="item" style="position: absolute; top: 40px; right: 30px; padding: 0" >Logout</a>
             		<%
             		}
             	else {
@@ -52,7 +57,7 @@
         </div>
         <button class="right-part"></button>
         <img class="image" src="${pageContext.request.contextPath}/image/home-illustration.png" alt="">
-        <button class="home-button others">Get started!</button>
+        <a href="<%= fullname != null ? request.getContextPath() + "/flashcard?action=getRandomizedFlashcards&userID=" + userID : "login.jsp" %>" class="home-button others">Get started!</a>
         <!-- <div class="decorations orange">
             <img src="../image/zigzag.jpg" alt="">
         </div> -->
@@ -81,7 +86,7 @@
                 document.getElementsByClassName('header')[0].classList.add('header-shrink');
                 document.getElementsByClassName('right-part')[0].classList.add('login-shrink');
                 document.getElementsByClassName('image')[0].classList.add('image-shrink');
-                document.getElementsByClassName('right-part')[0].innerHTML = "Login";
+                document.getElementsByClassName('right-part')[0].innerHTML = "<%= fullname != null ? "Logout" : "Login" %>";
                 for (let i = 0; i < elems.length; i++)
                     elems[i].classList.add('shrink');
                 document.getElementsByClassName('section-1')[0].classList.add('section-shrink');

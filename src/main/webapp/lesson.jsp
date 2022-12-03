@@ -1,4 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page language="java" import="java.util.ArrayList" %>
 <%@ page language="java" import="model.bean.*" %>
@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/lesson.css" />
 </head>
 <body>
-  <div class="container">
+	<jsp:include page="header.jsp" />
+  <div class="container" style="padding-top: 100px">
 <%
 	ArrayList<Lesson> lessons = (ArrayList<Lesson>)request.getAttribute("lessons");
 	for (int i = 0; i < lessons.size(); i++){
@@ -33,4 +34,4 @@
  <%}%>
 </div>
 </body>
-</html> --%>
+</html>

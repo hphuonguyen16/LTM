@@ -30,8 +30,8 @@ public class FlashcardBO {
 		return flashcardDAO.deleteFlashcard(flashcardID);
 	}
 
-	public ArrayList<Flashcard> getAllFlashcards() {
-		return flashcardDAO.getAllFlashcards(0);
+	public ArrayList<Flashcard> getAllFlashcards(int userID) {
+		return flashcardDAO.getAllFlashcards(userID);
 	}
 
 	public ArrayList<Flashcard> getRandomizedFlashcards(int userID) {

@@ -4,6 +4,20 @@ body{
 	background: var(--sub-color-light);
 }
 
+.header{
+	background: var(--sub-color-light) !important;
+}
+
+.header .right-menu .login-button{
+	color: var(--sub-color-middle) !important;
+    background: var(--main-color-middle) !important;
+    box-shadow: var(--main-shadow) !important;
+}
+
+.header .right-menu .login-button:hover{
+    box-shadow: var(--sub-hover-shadow) !important;
+}
+
 .container{
     display: flex;
     align-items: center;

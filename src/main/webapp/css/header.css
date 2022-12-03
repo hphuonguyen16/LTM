@@ -1,0 +1,64 @@
+@import url(../css/config.css);
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding-top: 20px; */
+    position: fixed;
+    height: var(--header-shrink-height);
+    width: 100vw;
+    background: var(--main-color-light);
+}
+
+.header .left-menu {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.header .right-menu {
+    z-index: 5;
+    margin-right: 20px;
+    color: var(--sub-color-middle);
+}
+
+.header .item {
+    color: inherit;
+    /* color: var(--sub-color-dark); */
+    text-decoration: none;
+    padding: 0 2.5rem;
+    font-size: 18pt;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.header .item:hover {
+    /* text-shadow: var(--text-shadow); */
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.header .right-menu .login-button{
+    background: var(--sub-color-middle);
+    position: fixed;
+    right: 40px;
+    top: 15px;
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: var(--main-color-light);
+    font-size: 16pt;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    box-shadow: var(--sub-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header .right-menu .login-button:hover {
+    box-shadow: var(--hover-shadow);
+}

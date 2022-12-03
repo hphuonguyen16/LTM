@@ -26,10 +26,12 @@
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <div id="quize">
   <div class="question-bar">
   	<%
   	ArrayList<Question> questions = (ArrayList<Question>)request.getAttribute("questions");
+  	System.out.println(questions);
   	 ArrayList<Choices> choices = (ArrayList<Choices>)request.getAttribute("choices");
 	%>
 	<script>

@@ -22,7 +22,7 @@ public class FlashcardDAO {
 
 			Connection conn = getConnection();
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM flashcard");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM flashcard WHERE userID = " + userID);
 			while (rs.next()) {
 				Flashcard flashcard = new Flashcard();
 				flashcard.setFlashcardID(rs.getInt(1));

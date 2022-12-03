@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-      <form action="QuizServlet?action=addQuestion" method="post">
+      <form action="<%=request.getContextPath()%>/QuizServlet?action=addQuestion" method="post">
         
       <div class="topic-element">
       <label for="lesson">Lesson</label> 

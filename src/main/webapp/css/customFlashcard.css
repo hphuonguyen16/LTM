@@ -2,8 +2,12 @@
 
 body{
     background: var(--main-color-middle);
-    
 }
+
+.header{
+	background: var(--main-color-middle) !important;
+}
+
 
 .custom-flashcard .title {
     font-size: 32pt;

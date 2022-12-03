@@ -11,7 +11,9 @@
 </head>
 
 <body>
-	<% boolean update = request.getParameter("action").equals("update");
+	<% 
+ 		int userID = session.getAttribute("userID") != null ? Integer.valueOf(session.getAttribute("userID").toString()) : 0;
+		boolean update = request.getParameter("action").equals("update");
 		Flashcard flashcard = (Flashcard) request.getAttribute("flashcard");
 	%>
     <script>
@@ -24,14 +26,19 @@
             document.documentElement.style.setProperty('--uploadedImage', "url(" + URL.createObjectURL(event.target.files[0]) + ")");
         }
     </script>
+    <jsp:include page="header.jsp" />
+    <div style="padding-top: 20px;">
     <div class="custom-flashcard">
+    
         <div class="title"><%= update ? "Edit your <br>" : "Create your <br> own" %>
             <span
                 style="color: #b3572d; font-size: 40pt; margin: 0 5px; text-shadow: 2px 2px 0 #fbd37b, 5px 6px 0 #284b59;">flashcard</span>
             !
         </div>
+        
     </div>
-    <form class="flashcard-form" action="<%=request.getContextPath()%>/flashcard?action=<%= update ? "updateFlashcard&flashcardID=" + flashcard.getFlashcardID() : "addNewFlashcard" %>" method="post"
+    
+    <form class="flashcard-form" action="<%=request.getContextPath()%>/flashcard?action=<%= update ? "updateFlashcard&flashcardID=" + flashcard.getFlashcardID() +"&userID=" + userID : "addNewFlashcard&userID=" + userID %>" method="post"
         enctype="multipart/form-data">
         <div class="front">
             <input type="file" class="image-upload" name="image" onchange="loadFile(event)" />
@@ -49,6 +56,7 @@
             </button>
         </div>
     </form>
+    </div>
     </div>
 </body>
 

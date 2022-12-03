@@ -12,13 +12,19 @@
 </head>
 
 <body>
+	<jsp:include page="header.jsp" />
     <!-- Flashcard contains a front (w a word in English & an image associated w/ it) & a back (w the meaning of the word) -->
 	<div class="container">
 	    <div class="cards-slider">
 	        <img class="swipe-left" style="opacity: 0" src="${pageContext.request.contextPath}/image/swipe-left.png"
 	            onclick="clickLeft()" />
 	            <div style="width:500px;"></div>
-	        <% ArrayList<Flashcard> flashcards = (ArrayList<Flashcard>)request.getAttribute("listFlashcard");
+	        <%
+	        	int userID = session.getAttribute("userID") != null ? Integer.valueOf(session.getAttribute("userID").toString()) : 0;
+		        if(session.getAttribute("role") != null && ((String)session.getAttribute("role")).equals("admin")){
+		    		userID = 0;
+		    	}
+	        	ArrayList<Flashcard> flashcards = (ArrayList<Flashcard>)request.getAttribute("listFlashcard");
 	        	for(int i = 0; i < flashcards.size(); i++) {
 	        %>
 	        <script>
@@ -75,10 +81,10 @@
 			<div style="z-index: -999; position: absolute; right: 31%; bottom: 120px; font-size: 23pt; text-align: center; font-family: 'Racing Sans One', cursive; transform: rotateZ(7deg)">Create your <br> own
 			<span style="color: #b3572d; font-size: 28pt; margin: 0 5px; text-shadow: 2px 2px 0 #fbd37b, 5px 6px 0 #284b59;">flashcard</span> !</div>
 			<img class="dash-arrow" alt="" src="${pageContext.request.contextPath}/image/dash-arrow.png">
-			<a class="add-button" href="customFlashcard.jsp?action=add">+</a>
+			<a class="add-button" href="<%= userID == 0 ? "login.jsp" : "customFlashcard.jsp?action=add" %>">+</a>
 		</div>
 	    <div class="inventory">
-	    	<div class="image" onclick="openInventory()"></div>
+	    	<a href="<%= userID == 0 ? "login.jsp" : "#" %>" class="image" onclick=" <%= userID == 0 ? "" : "openInventory()" %> "></a>
 	    	<img class="bubble inventory-pop" alt="" src="${pageContext.request.contextPath}/image/speech-bubble-2.png">
 	    	<div class="text inventory-pop">your <br> cards </div>
 	    </div>
@@ -86,7 +92,7 @@
 	    <div class="my-cards">
 	    	<div class="close" onclick="openInventory()">&#10060;&#xfe0e;</div>
 	    	<div class="scroll-pane">
-	    	<% ArrayList<Flashcard> mycards = (ArrayList<Flashcard>)request.getAttribute("listFlashcard");
+	    	<% ArrayList<Flashcard> mycards = (ArrayList<Flashcard>)request.getAttribute("myCards");
 	        	for(int i = 0; i < mycards.size(); i++) {
 	        %>
 	        	<div class="my-card">
@@ -98,7 +104,7 @@
 	        		</div>
 	        		<div class="options">
 	        			<a href="<%=request.getContextPath()%>/flashcard?action=showCard&flashcardID=<%= mycards.get(i).getFlashcardID() %>" class="edit"></a>
-	        			<a href="<%=request.getContextPath()%>/flashcard?action=deleteFlashcard&flashcardID=<%= mycards.get(i).getFlashcardID() %>" class="delete"></a>
+	        			<a href="<%=request.getContextPath()%>/flashcard?action=deleteFlashcard&flashcardID=<%= mycards.get(i).getFlashcardID() %>&userID= <%= userID %> " class="delete"></a>
 <%-- 	        			<img class="edit" alt="" src="${pageContext.request.contextPath}/image/edit-icon.png"> --%>
 <%-- 	        			<img class="delete" alt="" src="${pageContext.request.contextPath}/image/delete-icon.png"> --%>
 	        			
