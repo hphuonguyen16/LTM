@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@500;600;700&family=Pacifico&family=Racing+Sans+One&display=swap');
 body{
 	margin: 0;
 	padding: 20px;
 	font-size: 14px;
-	font-family: Helvetica;
+	font-family: 'Poppins', sans-serif;
 	background:  #6ab5a5;
   
 }
@@ -191,6 +192,87 @@ svg {
 .backOutLeft {
   animation-name: backOutLeft;
 }
+
+
+.card {
+	display: none;
+	position: fixed;
+    top: 15%;
+    left: 35%;
+  width: 350px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-container {
+  display: flex;
+flex-direction: column;
+justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  background-color: #fbd37b;
+  border-radius: 10px;
+  width: 100%;
+  margin:0 auto;
+  padding-bottom: 32px;
+  margin: 0 auto;
+  padding-top: 10px;
+;
+}
+
+.card i{
+	position:relative;
+	left: 360px;
+	top:-20px;
+	color:#fbd37b;
+}
+.card i:hover{
+	cursor: pointer;
+}
+.card h3 {
+  text-align: center;
+  color: #f8c365;
+  font-weight: 700;
+}
+
+.card h2 {
+  font-size: 3em;
+  margin: 0;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  color: rgb(22, 89, 91);
+  text-align: center;
+  padding-top: 15px;
+}
+.card h5 {
+  margin-top: -10px;
+  text-align: center;
+  font-size: 13px;
+  color: rgb(22, 89, 91);
+}
+.card button {
+  margin-left: -2px;
+  justify-self: center;
+  background-color: #499d92;
+  padding: 14px 30px;
+	background-color:  #284b59;
+	color: #fff;
+	border: 0;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border-radius: 10px;
+}
+.numtotal {
+  font-size: 29px;
+  color: #499d92;
+}
+
 
 
 

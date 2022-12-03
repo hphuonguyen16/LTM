@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="model.bean.User"%>
 <html lang="en">
 
 <head>
@@ -7,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+    <script type="text/javascript">
+    function ClickLogOut() {
+    	String action = "LogOut";
+	}
+    </script>
 </head>
 
 <body id="wrapper">
@@ -19,7 +25,20 @@
                 <a href="<%=request.getContextPath()%>/point?action=getAllPointsByUserID&userID=1" class="item">Points</a>
             </div>
             <div class="right-menu others">
-                <div class="item">Login</div>
+                <%String name = (String)session.getAttribute("username");
+                  String fullname = (String)session.getAttribute("fullname");
+                if(name != null)
+            	{
+            		%>
+            		<h3>Welcome <%= fullname %></h3>
+            		<a href="<%=request.getContextPath()%>/UserController?action=LogOut"  class="item" >Logout</a>
+            		<%
+            		}
+            	else {
+            		%>
+                		<a href="login.jsp" class="item">Login</a>
+                	<% 
+            		}%>
             </div>
         </div>
         <div class="name others"><span style="color: #b3572d; margin-left: 60px;">This</span> is an <br> <span style="text-shadow: 3px 4px 0 #f8c365,

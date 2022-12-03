@@ -6,14 +6,24 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/apache-tomcat-7.0.109">
+=======
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/mysql-connector-java-5.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
+>>>>>>> 804a4335c6dd50d428ca684bb5f593acc008b8d3
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/vinhn/Downloads/mysql-connector-java-5.jar"/>
 	<classpathentry kind="lib" path="D:/Eclipse/apache-tomcat-9.0.62/lib/servlet-api.jar"/>
+=======
+>>>>>>> 804a4335c6dd50d428ca684bb5f593acc008b8d3
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

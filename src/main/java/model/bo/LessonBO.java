@@ -20,5 +20,7 @@ public class LessonBO {
 	public List<Lesson> getAllLessons() {
 		return lessonDAO.getAllLessons();
 	}
-
+	public void AddNewLesson(String _topic,String _level) throws ClassNotFoundException {
+		lessonDAO.AddNewLesson(_topic, _level);
+	}
 }
