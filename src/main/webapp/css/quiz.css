@@ -1,18 +1,13 @@
-*{
-	box-sizing: border-box;
-	height:100vh;
-}
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@500;600;700&family=Pacifico&family=Racing+Sans+One&display=swap');
 body{
 	margin: 0;
 	padding: 20px;
 	font-size: 14px;
-	font-family: Helvetica;
+	font-family: 'Poppins', sans-serif;
 	background:  #6ab5a5;
   
 }
-.score-color--white{
-	background: #fff;
-}
+
 h2{
 	font-size: 20px;
 	margin: 0;
@@ -25,8 +20,8 @@ h3 {
     padding-bottom: 20px;
     margin: 0;
 }
-.quize{
-	max-width: 700px;
+#quize{
+	max-width: 900px;
 	width: 100%;
 	margin: 50px auto;
 	padding: 50px;
@@ -43,11 +38,15 @@ ul{
 	border-radius: 10px;
 	background: #f5faf9;
 }
-ul li{
+ul li+li{
 	margin-top: 16px;
 	border-top: 1px solid #c7e4de;
-	padding-bottom: 15px;
-    padding-top: 10px;
+	padding-bottom: 10px;
+    padding-top: 20px;
+}
+li{
+	padding-bottom: 12px;
+    padding-top: 7px;
 }
 ul li input[type="radio"] {
     display: none;
@@ -112,30 +111,7 @@ label{
 .question-bar.hidden{
 	display: none;
 }
-.scoreCount {
-    color: #000;
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    display: block;
-    vertical-align: middle;
-    line-height: 3.3;
-    font-size: 30px;
-    margin: 0 auto;
-    background: #FFBA00;
-    font-weight: bold;
-}
-div#showscore {
-    text-align: center;
-}
-.scoreBoard {
-    background: #fffbf1;
-    border-radius: 10px;
-    padding: 50px 20px;
-    max-width: 300px;
-    margin: 20px auto 50px;
-    border: 1px solid #ffe6a1;
-}
+
 .wrongAwnswer {
     margin-top: 30px;
     font-weight: bold;
@@ -174,12 +150,129 @@ svg {
 	cursor: pointer;
 }
 
-#correct{
-	background:  #ccffcc;
+@keyframes backOutRight {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(0px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateX(2000px) scale(0.7);
+    opacity: 0.7;
+  }
 }
 
-#wrong{
-	background: #ffb9b9;
+.backOutRight {
+  animation-name: backOutRight;
 }
+
+
+@keyframes backOutLeft {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(0px) scale(0.7);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateX(-2000px) scale(0.7);
+    opacity: 0.7;
+  }
+}
+
+.backOutLeft {
+  animation-name: backOutLeft;
+}
+
+
+.card {
+	display: none;
+	position: fixed;
+    top: 15%;
+    left: 35%;
+  width: 350px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-container {
+  display: flex;
+flex-direction: column;
+justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  background-color: #fbd37b;
+  border-radius: 10px;
+  width: 100%;
+  margin:0 auto;
+  padding-bottom: 32px;
+  margin: 0 auto;
+  padding-top: 10px;
+;
+}
+
+.card i{
+	position:relative;
+	left: 360px;
+	top:-20px;
+	color:#fbd37b;
+}
+.card i:hover{
+	cursor: pointer;
+}
+.card h3 {
+  text-align: center;
+  color: #f8c365;
+  font-weight: 700;
+}
+
+.card h2 {
+  font-size: 3em;
+  margin: 0;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  color: rgb(22, 89, 91);
+  text-align: center;
+  padding-top: 15px;
+}
+.card h5 {
+  margin-top: -10px;
+  text-align: center;
+  font-size: 13px;
+  color: rgb(22, 89, 91);
+}
+.card button {
+  margin-left: -2px;
+  justify-self: center;
+  background-color: #499d92;
+  padding: 14px 30px;
+	background-color:  #284b59;
+	color: #fff;
+	border: 0;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border-radius: 10px;
+}
+.numtotal {
+  font-size: 29px;
+  color: #499d92;
+}
+
+
 
 

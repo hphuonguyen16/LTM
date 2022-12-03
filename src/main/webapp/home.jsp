@@ -20,9 +20,9 @@
         <div class="menu">
             <div class="left-menu">
                 <a href="home.jsp" class="item">Home</a>
-                <a href="<%=request.getContextPath()%>/flashcard?action=getAllFlashcards" class="item">Flashcard</a>
+                <a href="<%=request.getContextPath()%>/flashcard?action=getRandomizedFlashcards" class="item">Flashcard</a>
                 <a href="LessonServlet" class="item">Quiz</a>
-                <a class="item">Points</a>
+                <a href="<%=request.getContextPath()%>/point?action=getAllPointsByUserID&userID=1" class="item">Points</a>
             </div>
             <div class="right-menu others">
                 <%String name = (String)session.getAttribute("username");
@@ -72,7 +72,7 @@
         var elems = document.getElementsByClassName('others');
         var items = document.getElementsByClassName('item');
         for (let i = 0; i < items.length; i++)
-            if (window.location.href.indexOf(items[i].innerHTML) > -1) {
+            if (window.location.href.indexOf(items[i].innerHTML.toLowerCase()) > -1) {
                 items[i].setAttribute('style', 'text-decoration: underline');
                 break;
             }
