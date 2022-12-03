@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="QuizServlet?action=showAllQuestions_admin&lesson_id=1">lesson 1</a>
+<a href="<%=request.getContextPath()%>/QuizServlet?action=showAllQuestions_admin&lesson_id=1">lesson 1</a>
 
 </body>
 </html>

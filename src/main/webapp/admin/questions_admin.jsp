@@ -18,7 +18,7 @@
     ></script>
 </head>
 <body>
-	<a class="button-add" href="QuizServlet?action=showAddForm&lesson_id=1">Add<i class="fa-solid fa-circle-plus"></i></a>
+	<a class="button-add" href="<%=request.getContextPath()%>/QuizServlet?action=showAddForm&lesson_id=1">Add<i class="fa-solid fa-circle-plus"></i></a>
 	<%
   	HashMap<Question,List<Choices>> allQuizes = (HashMap<Question, List<Choices>>)request.getAttribute("allQuizes");
 	 Set<Question> setOfKeySet = allQuizes.keySet();
@@ -28,7 +28,7 @@
       <div class="question-container">
         <div class="question-element">
           <h3><%=q.getQuestion()%></h3>
-          <a href="QuizServlet?action=deleteQuestion_admin&question_id=<%=q.getQuizID()%>&lesson_id=<%=q.getLessonID()%>"><i class="fa-regular fa-trash-can fa-lg" ></i></a>
+          <a href="<%=request.getContextPath()%>/QuizServlet?action=deleteQuestion_admin&question_id=<%=q.getQuizID()%>&lesson_id=<%=q.getLessonID()%>"><i class="fa-regular fa-trash-can fa-lg" ></i></a>
         </div>
         <ul class="choice-container">
         <%for(Choices c : allQuizes.get(q)){ %>

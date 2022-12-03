@@ -84,8 +84,10 @@ public class FlashcardController extends HttpServlet {
 			FlashcardBO flashcardBO = new FlashcardBO();
 			int status = flashcardBO.addNewFlashcard(word, word_type, meaning, part.getInputStream(), userID);
 			if (status > 0) {
-				ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+				ArrayList<Flashcard> flashcards = flashcardBO.getRandomizedFlashcards(userID);
+				ArrayList<Flashcard> myCards = flashcardBO.getAllFlashcards(userID);
 				request.setAttribute("listFlashcard", flashcards);
+				request.setAttribute("myCards", myCards);
 				String destination = "/flashcard.jsp";
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 				dispatcher.forward(request, response);
@@ -127,8 +129,11 @@ public class FlashcardController extends HttpServlet {
 			FlashcardBO flashcardBO = new FlashcardBO();
 			int status = flashcardBO.updateFlashcard(flashcardID, word, word_type, meaning, part.getInputStream());
 			if (status > 0) {
-				ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+				int userID = Integer.parseInt(request.getParameter("userID"));
+				ArrayList<Flashcard> flashcards = flashcardBO.getRandomizedFlashcards(userID);
+				ArrayList<Flashcard> myCards = flashcardBO.getAllFlashcards(userID);
 				request.setAttribute("listFlashcard", flashcards);
+				request.setAttribute("myCards", myCards);
 				String destination = "/flashcard.jsp";
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 				dispatcher.forward(request, response);
@@ -146,8 +151,11 @@ public class FlashcardController extends HttpServlet {
 		FlashcardBO flashcardBO = new FlashcardBO();
 		int status = flashcardBO.deleteFlashcard(flashcardID);
 		if (status > 0) {
-			ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+			int userID = Integer.parseInt(request.getParameter("userID"));
+			ArrayList<Flashcard> flashcards = flashcardBO.getRandomizedFlashcards(userID);
+			ArrayList<Flashcard> myCards = flashcardBO.getAllFlashcards(userID);
 			request.setAttribute("listFlashcard", flashcards);
+			request.setAttribute("myCards", myCards);
 			String destination = "/flashcard.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 			dispatcher.forward(request, response);
@@ -160,8 +168,11 @@ public class FlashcardController extends HttpServlet {
 	private void getAllFlashcard(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		FlashcardBO flashcardBO = new FlashcardBO();
-		ArrayList<Flashcard> flashcards = flashcardBO.getAllFlashcards();
+		int userID = Integer.parseInt(request.getParameter("userID"));
+		ArrayList<Flashcard> flashcards = flashcardBO.getRandomizedFlashcards(userID);
+		ArrayList<Flashcard> myCards = flashcardBO.getAllFlashcards(userID);
 		request.setAttribute("listFlashcard", flashcards);
+		request.setAttribute("myCards", myCards);
 		String destination = "/flashcard.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 		dispatcher.forward(request, response);
@@ -169,10 +180,12 @@ public class FlashcardController extends HttpServlet {
 
 	private void getRandomizedFlashcard(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int userID = request.getParameter("userID") != null ? Integer.parseInt(request.getParameter("userID")) : 0;
+		int userID = Integer.parseInt(request.getParameter("userID"));
 		FlashcardBO flashcardBO = new FlashcardBO();
 		ArrayList<Flashcard> flashcards = flashcardBO.getRandomizedFlashcards(userID);
+		ArrayList<Flashcard> myCards = flashcardBO.getAllFlashcards(userID);
 		request.setAttribute("listFlashcard", flashcards);
+		request.setAttribute("myCards", myCards);
 		String destination = "/flashcard.jsp";
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destination);
 		dispatcher.forward(request, response);

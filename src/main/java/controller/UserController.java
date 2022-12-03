@@ -19,19 +19,21 @@ import model.bo.UserBO;
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UserController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action = request.getParameter("action");
@@ -44,14 +46,16 @@ public class UserController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-			}
+		}
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		switch (action) {
 		case "AddAccount": {
@@ -64,17 +68,17 @@ public class UserController extends HttpServlet {
 			break;
 		}
 		case "Login": {
-				Login(request, response);
-				break;
+			Login(request, response);
+			break;
 		}
 		case "ChangePassword": {
-				try {
-					ChangePassword(request, response);
-				} catch (ClassNotFoundException | ServletException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				break;
+			try {
+				ChangePassword(request, response);
+			} catch (ClassNotFoundException | ServletException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 		case "LogOut": {
 			try {
@@ -85,92 +89,95 @@ public class UserController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-				
+
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + action);
 		}
 	}
-	protected void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void Login(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String destination = null;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+
 		UserBO userBo = new UserBO();
-	
-			if(userBo.isValidUser(username, password)) {
-				try {
-					User user = userBo.Login(username, password);
-					if(user != null) {
-						HttpSession session = request.getSession();
-						session.setAttribute("username",username);
-						session.setAttribute("fullname", user.getName());
-						System.out.print(user.getRole());
-						if(user.getRole().equals("user")) {
-							destination ="/home.jsp";
-							RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-							rd.forward(request, response);
-						}
-						else {
-							destination ="/admin/AddLesson.jsp";
-							RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-							rd.forward(request, response);
-						}
+
+		if (userBo.isValidUser(username, password)) {
+			try {
+				User user = userBo.Login(username, password);
+				if (user != null) {
+					HttpSession session = request.getSession();
+					session.setAttribute("userID", user.getUserID());
+					session.setAttribute("username", username);
+					session.setAttribute("fullname", user.getName());
+					session.setAttribute("role", user.getRole());
+					System.out.print(user.getRole());
+					if (user.getRole().equals("user")) {
+						destination = "/home.jsp";
+						RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+						rd.forward(request, response);
+					} else {
+						destination = "/admin/index.jsp";
+						RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+						rd.forward(request, response);
 					}
-					else{
-						response.sendRedirect(request.getContextPath()+"/login.jsp?error=0");
-						}
-					}
-				 catch (ClassNotFoundException | ServletException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} else {
+					response.sendRedirect(request.getContextPath() + "/login.jsp?error=0");
 				}
+			} catch (ClassNotFoundException | ServletException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else{
-				response.sendRedirect(request.getContextPath()+"/login.jsp?error=0");
-				}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/login.jsp?error=0");
+		}
 	}
-	protected void AddAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException {
+
+	protected void AddAccount(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException {
 		String destination = null;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		UserBO accountBo = new UserBO();
-		if(accountBo.isValidUser(username, password) && name != "")
-		{
-			accountBo.AddAccount(username, password,name);
-			destination ="/login.jsp";
+		if (accountBo.isValidUser(username, password) && name != "") {
+			accountBo.AddAccount(username, password, name);
+			destination = "/login.jsp";
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
 			rd.forward(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/AddAccount.jsp?error=0");
 		}
-		else{
-			response.sendRedirect(request.getContextPath()+"/AddAccount.jsp?error=0");
-			}
-		
-			
+
 	}
-	protected void ChangePassword(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, ServletException, IOException {
-		String destination = null; 	
+
+	protected void ChangePassword(HttpServletRequest request, HttpServletResponse response)
+			throws ClassNotFoundException, ServletException, IOException {
+		String destination = null;
 		String username = request.getParameter("username");
 		String current_password = request.getParameter("current_password");
 		String confirm_password = request.getParameter("confirm_password");
 		UserBO accountBo = new UserBO();
-		if(current_password.equals(confirm_password)) {
+		if (current_password.equals(confirm_password)) {
 			accountBo.ChangePassword(username, current_password);
-			destination ="/Trangchu.jsp";
+			destination = "/Trangchu.jsp";
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
+			rd.forward(request, response);
+		} else {
+		}
+	}
+
+	protected void LogOut(HttpServletRequest request, HttpServletResponse response)
+			throws ClassNotFoundException, ServletException, IOException {
+		HttpSession session = request.getSession();
+		if (session != null) {
+			session.invalidate();
+			String destination = "/home.jsp";
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
 			rd.forward(request, response);
 		}
-		else {		}			
 	}
-	protected void LogOut(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, ServletException, IOException{
-		HttpSession session = request.getSession();
-		if(session != null) {
-			session.invalidate();
-			String destination ="/home.jsp";
-			RequestDispatcher rd = getServletContext().getRequestDispatcher(destination);
-			rd.forward(request, response);
-	}
-	}
-		
+
 }

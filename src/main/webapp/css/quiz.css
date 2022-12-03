@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@500;600;700&family=Pacifico&family=Racing+Sans+One&display=swap');
+
 body{
 	margin: 0;
-	padding: 20px;
 	font-size: 14px;
 	font-family: 'Poppins', sans-serif;
-	background:  #6ab5a5;
-  
+	background:var(--sub-color-light);	
+}
+
+.header{
+	background: var(--sub-color-light) !important;
 }
 
 h2{
@@ -23,7 +26,9 @@ h3 {
 #quize{
 	max-width: 900px;
 	width: 100%;
-	margin: 50px auto;
+	position: absolute;
+	top: 150px;
+	right: 500px;
 	padding: 50px;
 	background: #ffffff;
 	border-radius: 10px;
@@ -198,13 +203,13 @@ svg {
 	display: none;
 	position: fixed;
     top: 15%;
-    left: 35%;
+    left: 40%;
   width: 350px;
   margin: 50px auto;
   padding: 30px;
   background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 6px 6px 3px rgba(0, 0, 0, 0.2);
 }
 
 .card-container {

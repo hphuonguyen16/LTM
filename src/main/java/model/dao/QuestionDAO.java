@@ -12,18 +12,18 @@ import model.bean.Choices;
 import model.bean.Question;
 
 public class QuestionDAO {
-	private String jdbcURL = "jdbc:mysql://127.0.0.1:3306/ELW";
+	private String jdbcURL = "jdbc:mysql://127.0.0.1:3306/elw";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "";
-	private static final String SELECT_ALL_QUESTIONS_BY_LESSON_ID = "select * from question where lesson_id = ?;";
+	private static final String SELECT_ALL_QUESTIONS_BY_LESSON_ID = "select * from question where lessonID = ?;";
 	private static final String SELECT_ALL_CHOICES_BY_QUESTION_ID = "select * from choices where question_id = ?;";
-	private static final String INSERT_QUESTION = "INSERT INTO question" + "  (question, lesson_id) VALUES "
+	private static final String INSERT_QUESTION = "INSERT INTO question" + "  (question, lessonID) VALUES "
 			+ " (?, ?);";
 	private static final String INSERT_CHOICES = "INSERT INTO choices" + "  (answer, correct, question_id) VALUES "
 			+ " (?, ?, ?);";
-	private static final String DELETE_QUESTION = "delete from question where id = ?;";
+	private static final String DELETE_QUESTION = "delete from question where questionID = ?;";
 	private static final String DELETE_CHOICE = "delete from choices where question_id = ?;";
-	
+
 	protected Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -60,9 +60,10 @@ public class QuestionDAO {
 			while (rs.next()) {
 				int id = rs.getInt(1);
 				String question = rs.getString("question");
-				int lesson_id = rs.getInt("lesson_id");
+				int lesson_id = rs.getInt("lessonID");
 				questions.add(new Question(id, question, lesson_id));
 			}
+			System.out.println(questions);
 		} catch (SQLException e) {
 //			printSQLException(e);
 		}
@@ -80,8 +81,8 @@ public class QuestionDAO {
 		List<Choices> choices = new ArrayList<>();
 		try {
 //			Connection connection = getConnection();
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String connectionURL = "jdbc:mysql://127.0.0.1:3306/data";
+			Class.forName("com.mysql.jdbc.Driver");
+			String connectionURL = "jdbc:mysql://127.0.0.1:3306/elw";
 			Connection connection = DriverManager.getConnection(connectionURL, "root", "");
 			// Step 2:Create a statement using connection object
 			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CHOICES_BY_QUESTION_ID);
@@ -92,7 +93,7 @@ public class QuestionDAO {
 
 			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				int id = rs.getInt(1);
 				String answer = rs.getString("answer");
 				Boolean correct = rs.getBoolean("correct");
 				choices.add(new Choices(id, answer, correct, question_id));
@@ -102,30 +103,32 @@ public class QuestionDAO {
 		}
 		return choices;
 	}
+
 	public int insertQuestion(Question question) throws SQLException {
 		System.out.println(INSERT_QUESTION);
 		// try-with-resource statement will auto close the connection.
 		ResultSet rs = null;
 		try (Connection connection = getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUESTION, PreparedStatement.RETURN_GENERATED_KEYS)) {
+				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUESTION,
+						PreparedStatement.RETURN_GENERATED_KEYS)) {
 			preparedStatement.setString(1, question.getQuestion());
 			preparedStatement.setInt(2, question.getLessonID());
 			preparedStatement.executeUpdate();
 			System.out.println(preparedStatement);
-			 int autoIncKeyFromApi = -1;
+			int autoIncKeyFromApi = -1;
 
-			    rs = preparedStatement.getGeneratedKeys();
+			rs = preparedStatement.getGeneratedKeys();
 
-			    if (rs.next()) {
-			        autoIncKeyFromApi = rs.getInt(1);
-			    }
-			    System.out.println("Key returned from getGeneratedKeys()"+ autoIncKeyFromApi);
+			if (rs.next()) {
+				autoIncKeyFromApi = rs.getInt(1);
+			}
+			System.out.println("Key returned from getGeneratedKeys()" + autoIncKeyFromApi);
 			return autoIncKeyFromApi;
 		} catch (SQLException e) {
 		}
 		return 0;
 	}
-	
+
 	public boolean deleteQuestion(int id) throws SQLException {
 		boolean rowDeleted;
 		try (Connection connection = getConnection();
@@ -135,7 +138,7 @@ public class QuestionDAO {
 		}
 		return rowDeleted;
 	}
-	
+
 	public void insertChoice(Choices choice) throws SQLException {
 		System.out.println(INSERT_CHOICES);
 		// try-with-resource statement will auto close the connection.
@@ -147,10 +150,10 @@ public class QuestionDAO {
 			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-		
+
 		}
 	}
-	
+
 	public boolean deleteChoice(int questionID) throws SQLException {
 		boolean rowDeleted;
 		try (Connection connection = getConnection();
@@ -160,6 +163,5 @@ public class QuestionDAO {
 		}
 		return rowDeleted;
 	}
-	
 
 }
