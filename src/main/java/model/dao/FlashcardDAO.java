@@ -48,8 +48,8 @@ public class FlashcardDAO {
 		try {
 			Connection conn = getConnection();
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM flashcard WHERE userID = 0 OR userID = " + userID
-					+ "ORDER BY RAND() LIMIT " + card_number);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM flashcard WHERE ( userID = 0 OR userID = " + userID
+					+ "	) ORDER BY RAND() LIMIT " + card_number);
 			while (rs.next()) {
 				Flashcard flashcard = new Flashcard();
 				flashcard.setFlashcardID(rs.getInt(1));
@@ -60,6 +60,32 @@ public class FlashcardDAO {
 				if (rs.getInt(6) == 0)
 					flashcard.setUserID(rs.getInt(6));
 				result.add(flashcard);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return result;
+	}
+
+	public Flashcard getFlashcardDetail(int flashcardID) {
+		Flashcard result = null;
+		try {
+
+			Connection conn = getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM flashcard WHERE flashcardID = " + flashcardID);
+			while (rs.next()) {
+				Flashcard flashcard = new Flashcard();
+				flashcard.setFlashcardID(rs.getInt(1));
+				flashcard.setWord(rs.getString(2));
+				flashcard.setWord_type(rs.getString(3));
+				flashcard.setMeaning(rs.getString(4));
+				flashcard.setImage(retrieveBase64Image(rs.getBlob(5)));
+				if (rs.getInt(6) == 0)
+					flashcard.setUserID(rs.getInt(6));
+				return flashcard;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -82,6 +108,39 @@ public class FlashcardDAO {
 			stmt.setInt(5, userID);
 
 			status = stmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	public int updateFlashcard(int flashcardID, String word, String word_type, String meaning, InputStream image) {
+		int status = 0;
+		try {
+			Connection conn = getConnection();
+			PreparedStatement stmt = conn.prepareStatement(
+					"UPDATE flashcard SET word = ?, word_type = ?, meaning = ?, image = ? WHERE flashcardID = "
+							+ flashcardID);
+			stmt.setString(1, word);
+			stmt.setString(2, word_type);
+			stmt.setString(3, meaning);
+			stmt.setBlob(4, image);
+
+			status = stmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return status;
+	}
+
+	public int deleteFlashcard(int flashcardID) {
+		int status = 0;
+		try {
+			Connection conn = getConnection();
+			Statement stmt = conn.createStatement();
+			status = stmt.executeUpdate("DELETE FROM flashcard WHERE flashcardID = " + flashcardID);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.*;
 import model.bean.Choices;
 import model.bean.Question;
 
 public class QuestionDAO {
-	private String jdbcURL = "jdbc:mysql://127.0.0.1:3306/data";
+	private String jdbcURL = "jdbc:mysql://127.0.0.1:3306/ELW";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "";
 	private static final String SELECT_ALL_QUESTIONS_BY_LESSON_ID = "select * from question where lesson_id = ?;";
 	private static final String SELECT_ALL_CHOICES_BY_QUESTION_ID = "select * from choices where question_id = ?;";
+<<<<<<< HEAD
 	private static final String INSERT_QUESTION = "INSERT INTO question" + "  (question, lesson_id) VALUES "
 			+ " (?, ?);";
 	private static final String INSERT_CHOICES = "INSERT INTO choices" + "  (answer, correct, question_id) VALUES "
@@ -26,6 +26,9 @@ public class QuestionDAO {
 	private static final String DELETE_CHOICE = "delete from choices where question_id = ?;";
 	
 	
+=======
+
+>>>>>>> 2967a7dde56df1b22bf3e543b95e515a176d430e
 	protected Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -44,6 +47,7 @@ public class QuestionDAO {
 	public QuestionDAO() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public List<Question> getAllQuestionsByLessonId(int lessonId) {
 
 		// using try-with-resources to avoid closing resources (boiler plate code)
@@ -51,17 +55,17 @@ public class QuestionDAO {
 		// Step 1: Establishing a Connection
 		try {
 			Connection connection = getConnection();
-				// Step 2:Create a statement using connection object
+			// Step 2:Create a statement using connection object
 			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_QUESTIONS_BY_LESSON_ID);
-			preparedStatement.setInt(1, lessonId);			
+			preparedStatement.setInt(1, lessonId);
 			System.out.println(preparedStatement);
 			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
 			// Step 4: Process the ResultSet object.
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				int id = rs.getInt(1);
 				String question = rs.getString("question");
-				int lesson_id  = rs.getInt("lesson_id");
+				int lesson_id = rs.getInt("lesson_id");
 				questions.add(new Question(id, question, lesson_id));
 			}
 		} catch (SQLException e) {
@@ -69,24 +73,24 @@ public class QuestionDAO {
 		}
 		return questions;
 	}
-	
+
 	public Question getQuestionsByIndex(int index, int lesson_id) {
 		List<Question> questions = new ArrayList<>();
 		questions = this.getAllQuestionsByLessonId(lesson_id);
 		Question ques = questions.get(index);
 		return ques;
 	}
-	
-	public List<Choices> getChoicesByQuestionId(int question_id) throws ClassNotFoundException{
+
+	public List<Choices> getChoicesByQuestionId(int question_id) throws ClassNotFoundException {
 		List<Choices> choices = new ArrayList<>();
 		try {
 //			Connection connection = getConnection();
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String connectionURL = "jdbc:mysql://127.0.0.1:3306/data";
 			Connection connection = DriverManager.getConnection(connectionURL, "root", "");
-				// Step 2:Create a statement using connection object
+			// Step 2:Create a statement using connection object
 			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CHOICES_BY_QUESTION_ID);
-			preparedStatement.setInt(1, question_id);		
+			preparedStatement.setInt(1, question_id);
 			System.out.println(preparedStatement);
 			// Step 3: Execute the query or update query
 			ResultSet rs = preparedStatement.executeQuery();
@@ -95,15 +99,15 @@ public class QuestionDAO {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String answer = rs.getString("answer");
-				Boolean correct = rs.getBoolean("correct");	
+				Boolean correct = rs.getBoolean("correct");
 				choices.add(new Choices(id, answer, correct, question_id));
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 //			printSQLException(e);
 		}
 		return choices;
 	}
+<<<<<<< HEAD
 	
 	public int insertQuestion(Question question) throws SQLException {
 		System.out.println(INSERT_QUESTION);
@@ -174,5 +178,7 @@ public class QuestionDAO {
 	
 	
 	
+=======
+>>>>>>> 2967a7dde56df1b22bf3e543b95e515a176d430e
 
 }
