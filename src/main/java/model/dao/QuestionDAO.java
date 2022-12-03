@@ -17,7 +17,6 @@ public class QuestionDAO {
 	private String jdbcPassword = "";
 	private static final String SELECT_ALL_QUESTIONS_BY_LESSON_ID = "select * from question where lesson_id = ?;";
 	private static final String SELECT_ALL_CHOICES_BY_QUESTION_ID = "select * from choices where question_id = ?;";
-<<<<<<< HEAD
 	private static final String INSERT_QUESTION = "INSERT INTO question" + "  (question, lesson_id) VALUES "
 			+ " (?, ?);";
 	private static final String INSERT_CHOICES = "INSERT INTO choices" + "  (answer, correct, question_id) VALUES "
@@ -25,10 +24,6 @@ public class QuestionDAO {
 	private static final String DELETE_QUESTION = "delete from question where id = ?;";
 	private static final String DELETE_CHOICE = "delete from choices where question_id = ?;";
 	
-	
-=======
-
->>>>>>> 2967a7dde56df1b22bf3e543b95e515a176d430e
 	protected Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -107,8 +102,6 @@ public class QuestionDAO {
 		}
 		return choices;
 	}
-<<<<<<< HEAD
-	
 	public int insertQuestion(Question question) throws SQLException {
 		System.out.println(INSERT_QUESTION);
 		// try-with-resource statement will auto close the connection.
@@ -168,17 +161,5 @@ public class QuestionDAO {
 		return rowDeleted;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-=======
->>>>>>> 2967a7dde56df1b22bf3e543b95e515a176d430e
 
 }
